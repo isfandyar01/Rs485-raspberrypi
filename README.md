@@ -69,7 +69,6 @@ sudo pip install pyserial
 
 
 
-
 Connect usb to rs485 to your pc or laptop 
  
 Open pymodbus slave software on your pc or laptop
