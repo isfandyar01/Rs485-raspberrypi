@@ -57,6 +57,7 @@ Before using UART pins in Raspberry Pi, it needs to be enabled. Follow the steps
 5. After that exit the raspi-config
 6. Reboot the Pi
 Now Serial port is ready to be used.
+
 Open Terminal and install these libraries:
 sudo apt-get update 
 sudo apt-get install python-pip 
@@ -65,39 +66,10 @@ sudo pip install RPi.GPIO 
 sudo apt-get install python-serial 
 sudo pip install serial 
 sudo pip install pyserial
-Copy the following code to python file on raspberry pi.
-import serial 
-import serial.rs485 
-import time 
-import RPi.GPIO as GPIO 
- 
- 
-TXDEN_1=7 # transmit enable pin 
- 
-GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BOARD) 
-GPIO.setup(TXDEN_1, GPIO.OUT, initial=GPIO.HIGH) 
- 
- 
-ser=serial.rs485.RS485(port='/dev/ttySC0',baudrate=9600,timeout=5,parity=serial.PARITY_EVEN) 
-ser.rs485_mode = serial.rs485.RS485Settings(rts_level_for_tx=False, 
-rts_level_for_rx=False, 
-delay_before_tx=0.0, 
-delay_before_rx=-0.0) 
- 
-SendFrame =b'\x01\x03\x00\x02\x00\x01\x25\xCA' # data is in hex format in python since rs485 rtu uses hex encoded data 
- 
- 
-while True: 
-GPIO.output(TXDEN_1, GPIO.HIGH) #write enabled for sending data frame to read the register 
-ser.write(SendFrame) #sending data frame 
-GPIO.output(TXDEN_1, GPIO.LOW) #read enabled to get reply from pymodbus slave software 
-coming_data = ser.inWaiting() #checking buffer with data available 
-print "comming_data:",coming_data # if no data is available comming data will be equal to 0 
-x=ser.read(ser.inWaiting()) #reading the actual data from pymodbus slave 
-print repr(x)# printing in hex format 
-print "ok" 
-time.sleep(2)
+
+
+
+
 Connect usb to rs485 to your pc or laptop 
  
 Open pymodbus slave software on your pc or laptop
