@@ -7,6 +7,7 @@ Data Packet of Rs485:
 Modbus RTU encodes data as binary and uses big-endian encoding for 16-bit values. This means that the most significant byte of a 16-bit word is sent first.
 Lets suppose that we want to read register 1 of our modbus slave 
 our data packet will look like this
+
 slave id (repeats own id) 
 | function code (repeats requested code) 
 | | address of first register to read (2 bytes)
@@ -14,6 +15,7 @@ slave id (repeats own id) 
 | | | | checksum(2bytes) 
 | | | | | 
 01 03 00 01 00 01 D5 CA
+
 The reply from slave will look like this
 Slave id
 | Function code
